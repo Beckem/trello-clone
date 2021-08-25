@@ -4,7 +4,6 @@ $list-bg-color: #ebecf0;
 $column-header-height: 36px;
 $column-footer-height: 36px;
 $column-border-radius: 5px;
-$column-card-radius: 4px;
 .column{
     flex: 0 0 auto;
     width: 300px;
@@ -36,7 +35,7 @@ $column-card-radius: 4px;
         border-bottom-right-radius: $column-border-radius;
     }
     
-    ul.task-list{
+    ul.card-list{
         list-style: none;
         margin: 0;
         max-height: calc(100% - #{$column-header-height} - #{$column-footer-height});
@@ -53,13 +52,7 @@ $column-card-radius: 4px;
         }
         
 
-        img{
-            display: block;
-            width: calc(100% + 2* #{$gap});
-            margin: -$gap 0 $gap (-$gap);
-            border-top-left-radius: $column-card-radius;
-            border-top-right-radius: $column-card-radius
-        }
+        
     }
 
 }
