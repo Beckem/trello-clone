@@ -1,3 +1,4 @@
+import React from 'react'
 import BoardBar from 'components/BoardBar/BoardBar';
 import BoardContent from 'components/BoardContent/BoardContent';
 import './App.scss';
