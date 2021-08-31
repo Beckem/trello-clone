@@ -1,7 +1,7 @@
 import React from 'react'
 import './Card.scss'
 
-function Card({card}) {
+function Card({ card }) {
     return (
         <div className="card-item">
             {card.cover &&

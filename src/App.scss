@@ -39,7 +39,19 @@ body{
     }
 
     .btn:focus, .btn:active{
-        outline: none;
-        box-shadow:none;
+        outline: none !important;
+        box-shadow:none !important;
+    }
+
+    .trello-content-editable {
+        background-color: inherit;
+        border:none;
+        font-size: inherit;
+        font-weight: inherit;
+        cursor: pointer;
+        &:focus {
+            background-color:#fff;
+            border:1px solid $input-border-color;
+        }
     }
 }
