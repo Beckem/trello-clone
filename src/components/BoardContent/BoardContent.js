@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash'
 import { mapOrder } from 'utilites/sorts'
 import { applyDrag } from 'utilites/dragDrop'
 import { Container, Draggable } from 'react-smooth-dnd'
-import {Container as BootstrapContainer, Row, Col, Form, Button} from 'react-bootstrap'
+import { Container as BootstrapContainer, Row, Col, Form, Button } from 'react-bootstrap'
 function BoardContent() {
     const [board, setBoard] = useState({})
     const [columns, setColumns] = useState([])
@@ -17,7 +17,7 @@ function BoardContent() {
         const boardFromDB = initialData.boards.find(board => board.id === 'board-1')
         if (boardFromDB) {
             setBoard(boardFromDB)
-            setColumns(mapOrder(boardFromDB.columns, boardFromDB.columnOrder, 'id'));
+            setColumns(mapOrder(boardFromDB.columns, boardFromDB.columnOrder, 'id'))
         }
     }, [])
 
@@ -36,7 +36,7 @@ function BoardContent() {
         let newColumns = [...columns]
         newColumns = applyDrag(newColumns, dropResult)
 
-        let newBoard = {...board}
+        let newBoard = { ...board }
         newBoard.columnOrder = newColumns.map(c => c.id)
         newBoard.columns = newColumns
         setColumns(newColumns)
@@ -66,7 +66,7 @@ function BoardContent() {
         }
 
         const newColumnToAdd = {
-            id: Math.random().toString(36).substr(2, 5), 
+            id: Math.random().toString(36).substr(2, 5),
             boardId: board.id,
             title: newColumnTitle.trim(),
             cardOrder: [],
@@ -84,6 +84,29 @@ function BoardContent() {
         setNewColumnTitle('')
         toggleOpenNewColumnForm()
     }
+
+    const onUpdateColumn = (newColumnToUpdate) => {
+        const columnIdToUpdate = newColumnToUpdate.id
+
+        let newColumns = [...columns]
+
+        const columnIndexToUpdate = newColumns.findIndex(i => i.id === columnIdToUpdate)
+
+        if (newColumnToUpdate._destroy) {
+            //remove
+            newColumns.splice(columnIndexToUpdate, 1)
+        } else {
+            //update
+            newColumns.splice(columnIndexToUpdate, 1, newColumnToUpdate)
+        }
+
+        let newBoard = { ...board }
+        newBoard.columnOrder = newColumns.map(c => c.id)
+        newBoard.columns = newColumns
+
+        setColumns(newColumns)
+        setBoard(newBoard)
+    }
     return (
         <div className="board-content">
             <Container
@@ -97,19 +120,19 @@ function BoardContent() {
                     className: 'column-drop-preview'
                 }}
             >
-                {columns.map((column, index)=>(
+                {columns.map((column, index) => (
                     <Draggable key={index}>
-                        <Column column={column} onCardDrop={onCardDrop}/>
+                        <Column column={column} onCardDrop={onCardDrop} onUpdateColumn={onUpdateColumn}/>
                     </Draggable>
                 ))}
             </Container>
 
             <BootstrapContainer className="add-column-container">
-                {!openNewColumnForm ? 
+                {!openNewColumnForm ?
                     (
                         <Row>
                             <Col className="add-new-column" onClick={toggleOpenNewColumnForm}>
-                                <i className="fa fa-plus icon"/> Add another column 
+                                <i className="fa fa-plus icon"/> Add another column
                             </Col>
                         </Row>
                     )
@@ -117,9 +140,9 @@ function BoardContent() {
                     (
                         <Row >
                             <Col className="enter-new-column">
-                                <Form.Control 
-                                    size="sm" 
-                                    type="text" 
+                                <Form.Control
+                                    size="sm"
+                                    type="text"
                                     placeholder="Enter column title..."
                                     className="input-enter-new-column"
                                     ref={newColumnInputRef}
