@@ -13,7 +13,7 @@ $column-height: calc(#{$board-content-height} - #{$gap*2});
     margin-left: $gap;
     >*{
         background-color:$column-bg-color;
-        padding: 5px 8px;
+        padding: 0px 8px;
     }
 
     header.column-drag-handle{
@@ -120,6 +120,13 @@ $column-height: calc(#{$board-content-height} - #{$gap*2});
             background-color: rgba(150, 150, 200, 0.1);
             border: 1px dashed #abc;
             margin: 5px;
+        }
+
+        .add-new-card-area{
+            .textarea-enter-new-column {
+                min-height: 54px;
+                max-height: 162px;
+            }
         }
         
     }
